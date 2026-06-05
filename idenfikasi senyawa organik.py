@@ -363,7 +363,8 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
-            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi, Mari Eksplor Dunia KImia Organik Tanpa Batas</p>
+            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi
+            Mari Eksplor Dunia KImia Organik Tanpa Batas</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -374,8 +375,8 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     )
     st.markdown("---")
     st.markdown("""
-    ### **RANGKUMAN MATERI PRAKTIKUM KIMIA ORGANIK**
-    Silakan gunakan menu navigasi di sebelah kiri untuk membaca rangkuman materi praktikum Kimia Organik secara sistematis.
+    ### **Petunjuk Penggunaan**
+    Silakan gunakan menu navigasi di sebelah kiri untuk membaca rangkuman materi sekaligus melakukan identifikasi senyawa organik secara sistematis.
     """)
 
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
