@@ -363,14 +363,14 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
-            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi</p>
+            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi, Mari Eksplor Dunia KImia Organik Tanpa Batas</p>
         </div>
     """, unsafe_allow_html=True)
     
     st.subheader("💡 Tentang Platform Ini")
     st.write(
         "Platform ini dirancang khusus untuk membantu memahami materi teoritis "
-        "sekaligus visualisasi reaksi uji kualitatif senyawa organik di laboratorium secara interaktif."
+        "sekaligus visualisasi reaksi uji kualitatif senyawa organik di laboratorium secara interaktif—kapan saja dan dimana saja, layaknya memiliki laboratorium pribadi."
     )
     st.markdown("---")
     st.markdown("""
