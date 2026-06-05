@@ -363,8 +363,7 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
-            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi
-            Mari Eksplor Dunia KImia Organik Tanpa Batas</p>
+            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Eksplorasi Dunia Kimia Organik Tanpa Batas Melalui Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi</p>
         </div>
     """, unsafe_allow_html=True)
     
