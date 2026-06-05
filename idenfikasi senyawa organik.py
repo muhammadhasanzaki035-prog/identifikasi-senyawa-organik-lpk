@@ -11,47 +11,40 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 2. CUSTOM CSS INTERAKTIF (VERSI MODERN)
+# 2. CUSTOM CSS INTERAKTIF (MENU NAVIGASI LUAS & COLORFUL)
 # ==============================================================================
 st.markdown("""
 <style>
+/* Background Aplikasi Utama */
 .stApp {
-    background: linear-gradient(135deg, #f0f9ff, #f8fafc);
+    background: linear-gradient(135deg, #f0fdf4, #f8fafc);
 }
+
+/* Kustomisasi Sidebar */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f766e, #14b8a6);
+    background: linear-gradient(180deg, #111827, #1f2937);
+    padding: 10px;
 }
 [data-testid="stSidebar"] * {
-    color: white !important;
+    color: #f3f4f6 !important;
 }
+
+/* Menyembunyikan komponen Radio bawaan agar bisa diganti tombol custom */
+div.row-widget.stRadio {
+    display: none;
+}
+
+/* Desain Banner Utama */
 .banner-utama {
-    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    background: linear-gradient(135deg, #059669, #3b82f6);
     padding: 35px;
-    border-radius: 15px;
+    border-radius: 16px;
     color: white;
     margin-bottom: 30px;
-    box-shadow: 0 6px 20px rgba(59,130,246,0.25);
+    box-shadow: 0 10px 25px rgba(5,150,105,0.2);
 }
-.kotak-analisis {
-    border-left: 6px solid #14b8a6;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #f0fdfa, #ecfeff);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.stButton > button {
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(135deg, #14b8a6, #0ea5e9);
-    color: white;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-.stButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(14,165,233,0.3);
-}
+
+/* Tabung Reaksi Animasi */
 .tube-wrap {
     display: flex;
     justify-content: center;
@@ -61,14 +54,14 @@ st.markdown("""
 .tube-glass {
     width: 80px;
     height: 300px;
-    border: 4px solid #64748b;
+    border: 4px solid #475569;
     border-top: none;
     border-radius: 0 0 40px 40px;
     position: relative;
     overflow: hidden;
-    background: rgba(15, 23, 42, 0.16);
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.25);
-    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
+    backdrop-filter: blur(5px);
 }
 .tube-liquid {
     position: absolute;
@@ -83,9 +76,8 @@ st.markdown("""
     left: 0;
     right: 0;
     height: 50px;
-    background: linear-gradient(to top, #ffffff 0%, #f1f5f9 80%, #cbd5e1 100%) !important;
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
-    border-top: 2.5px solid #94a3b8;
+    background: linear-gradient(to top, #ffffff 0%, #e2e8f0 80%, #94a3b8 100%) !important;
+    border-top: 2px solid #cbd5e1;
 }
 .cloudy-layer {
     position: absolute;
@@ -93,11 +85,11 @@ st.markdown("""
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(241,245,249,0.95));
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(226,232,240,0.9));
 }
 .bubble-fx {
     position: absolute;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.12);
     border-radius: 50%;
     width: 8px;
     height: 8px;
@@ -111,8 +103,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. FUNGSI HELPER & DATABASE (FORMAT LATEX PRESISI)
+# 3. INITIALIZATION STATE & DATABASE
 # ==============================================================================
+if "test_started" not in st.session_state:
+    st.session_state.test_started = False
+if "current_step" not in st.session_state:
+    st.session_state.current_step = 0
+if "log_history" not in st.session_state:
+    st.session_state.log_history = []
+if "trigger_animation" not in st.session_state:
+    st.session_state.trigger_animation = False
+if "menu_aktif" not in st.session_state:
+    st.session_state.menu_aktif = "🏠 HALAMAN UTAMA"
+
 def force_rerun():
     if hasattr(st, 'rerun'):
         st.rerun()
@@ -153,7 +156,6 @@ flowchart_paths = {
     "Alkana / Hidrokarbon Jenuh": ["Uji Golongan Alkohol", "Uji Golongan Alkanal/Aldehida (Bisulfit)", "Uji Golongan Ester", "Uji Golongan Asam Karboksilat"]
 }
 
-# Database reaksi menggunakan format string murni LaTeX khusus untuk st.latex
 database_reaksi = {
     "Alkohol Primer": {
         "Uji Golongan Alkohol": {
@@ -322,41 +324,66 @@ database_reaksi = {
     }
 }
 
-# Inisialisasi session state jika belum ada
-if "test_started" not in st.session_state:
-    st.session_state.test_started = False
-if "current_step" not in st.session_state:
-    st.session_state.current_step = 0
-if "log_history" not in st.session_state:
-    st.session_state.log_history = []
-if "trigger_animation" not in st.session_state:
-    st.session_state.trigger_animation = False
-
 # ==============================================================================
-# 4. SIDEBAR NAVIGASI
+# 4. SIDEBAR NAVIGASI (UPGRADE: LUAS, BESAR, DAN COLORFUL)
 # ==============================================================================
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/3022/3022607.png", width=75)
-    st.title("OrganicChem v1.0")
-    st.write("🔬 *E-Learning & Lab Simulator*")
-    st.markdown("---")
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image("https://cdn-icons-png.flaticon.com/512/3022/3022607.png", width=80)
+    st.markdown("<h2 style='color: white; margin-top:10px;'>OrganicChem</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #a1a1aa; font-style: italic; font-size:0.9em;'>Edu-Lab Platform & Simulator</p>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    pilihan_halaman = st.sidebar.radio(
-        "Navigasi Menu:",
-        [
-            "🏠 HALAMAN UTAMA", 
-            "📘 BAB I. HIDROKARBON", 
-            "📙 BAB II. ALKOHOL, ETER, DAN FENOL", 
-            "📗 BAB III. ALDEHID DAN KETON", 
-            "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA", 
-            "🔬 POST TEST"
-        ]
-    )
+    # KUSTOMISASI TOMBOL MENU AGAR LEBIH BESAR DAN BERWARNA
+    # Halaman Utama
+    if st.button("🏠 HALAMAN UTAMA", use_container_width=True, type="primary" if st.session_state.menu_aktif == "🏠 HALAMAN UTAMA" else "secondary"):
+        st.session_state.menu_aktif = "🏠 HALAMAN UTAMA"
+        force_rerun()
+        
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    
+    # Bab I (Biru)
+    if st.button("📘 BAB I. HIDROKARBON", use_container_width=True, type="primary" if st.session_state.menu_aktif == "📘 BAB I. HIDROKARBON" else "secondary"):
+        st.session_state.menu_aktif = "📘 BAB I. HIDROKARBON"
+        force_rerun()
+
+    st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+
+    # Bab II (Oranye)
+    if st.button("📙 BAB II. ALKOHOL & FENOL", use_container_width=True, type="primary" if st.session_state.menu_aktif == "📙 BAB II. ALKOHOL & FENOL" else "secondary"):
+        st.session_state.menu_aktif = "📙 BAB II. ALKOHOL & FENOL"
+        force_rerun()
+
+    st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+
+    # Bab III (Hijau)
+    if st.button("📗 BAB III. ALDEHID & KETON", use_container_width=True, type="primary" if st.session_state.menu_aktif == "📗 BAB III. ALDEHID & KETON" else "secondary"):
+        st.session_state.menu_aktif = "📗 BAB III. ALDEHID & KETON"
+        force_rerun()
+
+    st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+
+    # Bab IV (Merah)
+    if st.button("📕 BAB IV. ASAM KARBOKSILAT", use_container_width=True, type="primary" if st.session_state.menu_aktif == "📕 BAB IV. ASAM KARBOKSILAT" else "secondary"):
+        st.session_state.menu_aktif = "📕 BAB IV. ASAM KARBOKSILAT"
+        force_rerun()
+
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+
+    # Post Test (Ungu/Eksperimen)
+    if st.button("🔬 SIMULATOR & POST TEST", use_container_width=True, type="primary" if st.session_state.menu_aktif == "🔬 SIMULATOR & POST TEST" else "secondary"):
+        st.session_state.menu_aktif = "🔬 SIMULATOR & POST TEST"
+        force_rerun()
+
     st.markdown("---")
     st.caption("E-Learning Kimia Organik | © 2026")
 
+# Jalankan menu terpilih ke dalam variabel utama
+pilihan_halaman = st.session_state.menu_aktif
+
 # ==============================================================================
-# 5. LOGIKA KONTEN TIAP HALAMAN (BERSIH TOTAL & INTERAKTIF)
+# 5. LOGIKA KONTEN TIAP HALAMAN (WARNA-WARNI AKSEN & LATEX)
 # ==============================================================================
 
 if pilihan_halaman == "🏠 HALAMAN UTAMA":
@@ -373,13 +400,10 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
         "sekaligus visualisasi reaksi uji kualitatif senyawa organik di laboratorium secara interaktif."
     )
     st.markdown("---")
-    st.markdown("""
-    ### **RANGKUMAN MATERI PRAKTIKUM KIMIA ORGANIK**
-    Silakan gunakan menu navigasi di sebelah kiri untuk membaca rangkuman materi praktikum Kimia Organik secara sistematis.
-    """)
+    st.info("💡 **Petunjuk Pintar:** Gunakan tombol menu berukuran besar di bagian panel kiri untuk menjelajahi materi bab maupun langsung mensimulasikan uji laboratorium.")
 
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
-    st.title("📘 BAB I. HIDROKARBON")
+    st.markdown("<h2 style='color:#2563eb;'>📘 BAB I. HIDROKARBON</h2>", unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("""
@@ -422,8 +446,8 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     """)
     st.latex(r"\text{Benzena} + O_2 \rightarrow C_{(s)\ \text{[Jelaga]}} + CO + H_2O")
 
-elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
-    st.title("📙 BAB II. ALKOHOL, ETER, DAN FENOL")
+elif pilihan_halaman == "📙 BAB II. ALKOHOL & FENOL":
+    st.markdown("<h2 style='color:#ea580c;'>📙 BAB II. ALKOHOL, ETER, DAN FENOL</h2>", unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("""
@@ -453,8 +477,8 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     """)
     st.latex(r"R-CH(OH)-CH_3 + 4\ I_2 + 6\ NaOH \rightarrow R-COONa + CHI_3 \downarrow + 5\ NaI + 5\ H_2O")
 
-elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
-    st.title("📗 BAB III. ALDEHID DAN KETON")
+elif pilihan_halaman == "📗 BAB III. ALDEHID & KETON":
+    st.markdown("<h2 style='color:#16a34a;'>📗 BAB III. ALDEHID DAN KETON</h2>", unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("""
@@ -480,8 +504,8 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     """)
     st.latex(r"R-CHO + 2\ Cu^{2+} + 5\ OH^- \rightarrow R-COO^- + Cu_2O \downarrow + 3\ H_2O")
 
-elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
-    st.title("📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA")
+elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT":
+    st.markdown("<h2 style='color:#dc2626;'>📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA</h2>", unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("""
@@ -505,15 +529,17 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     """)
     st.latex(r"3\ R-CONHOH + FeCl_3 \rightarrow Fe(R-CONHO)_3\ \text{[Violet]} + 3\ HCl")
 
-# --- POST TEST ---
-elif pilihan_halaman == "🔬 POST TEST":
-    st.title("🔀 Smart Flowchart Auto-Analyzer (Step-by-Step)")
+# --- POST TEST / SIMULATOR ---
+elif pilihan_halaman == "🔬 SIMULATOR & POST TEST":
+    st.markdown("<h2 style='color:#7c3aed;'>🔬 Smart Flowchart Auto-Analyzer</h2>", unsafe_allow_html=True)
     st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif Golongan Fungsi secara otomatis berderet.")
 
     if not st.session_state.test_started:
         st.divider()
         senyawa = st.selectbox("Pilih Golongan Senyawa yang Akan Diuji (Sebagai *Blind Sample*):", ["-- Pilih Senyawa --"] + list(flowchart_paths.keys()))
-        if st.button("Mulai Identifikasi 🚀", type="primary"):
+        
+        # Mengubah tombol mulai menjadi besar & berwarna mencolok
+        if st.button("Mulai Identifikasi Laboratorium 🚀", use_container_width=True, type="primary"):
             if senyawa == "-- Pilih Senyawa --":
                 st.warning("⚠️ Harap pilih komponen senyawa terlebih dahulu!")
             else:
@@ -537,7 +563,7 @@ elif pilihan_halaman == "🔬 POST TEST":
             status_placeholder = st.empty()
             
             st.write("")
-            if st.button("⏹️ Stop & Pilih Reagen/Sampel Ulang", use_container_width=True, type="secondary"):
+            if st.button("⏹️ Hentikan & Reset Sampel", use_container_width=True, type="secondary"):
                 st.session_state.test_started = False
                 st.session_state.current_step = 0
                 st.session_state.log_history = []
@@ -550,14 +576,15 @@ elif pilihan_halaman == "🔬 POST TEST":
 
         with log_container:
             for log in st.session_state.log_history:
+                # Modifikasi kotak riwayat analisis dengan komponen bawaan berwujud info/error agar berwarna kontras
                 if "(+)" in log["hasil"]:
                     st.success(f"**Tahap {log['step']}: {log['pereaksi']}** ➔ **{log['hasil']}**")
                     st.latex(log['reaksi'])
-                    st.write(f"**Pembahasan:** {log['alasan']}")
+                    st.write(f"**Pembahasan Mekanisme:** {log['alasan']}")
                 else:
                     st.error(f"**Tahap {log['step']}: {log['pereaksi']}** ➔ **{log['hasil']}**")
                     st.latex(log['reaksi'])
-                    st.write(f"**Pembahasan:** {log['alasan']}")
+                    st.write(f"**Pembahasan Mekanisme:** {log['alasan']}")
 
         if st.session_state.trigger_animation and st.session_state.current_step < len(urutan):
             pereaksi = urutan[st.session_state.current_step]
