@@ -1,4 +1,3 @@
-import streamlit as pd
 import streamlit as st
 import time
 
@@ -14,7 +13,6 @@ if "skor_post_test" not in st.session_state:
     st.session_state.skor_post_test = None
 
 # --- CSS UNTUK VISUALISASI TABUNG REAKSI ---
-# Warna endapan putih dibuat solid menggunakan efek linear-gradient agar tidak abu-abu/transparan
 st.markdown("""
 <style>
     .test-tube-container {
@@ -47,7 +45,7 @@ st.markdown("""
         background: linear-gradient(to right, #94a3b8, #f1f5f9, #cbd5e1) !important;
         border-top: 2px solid #64748b;
     }
-    /* PERBAIKAN: Endapan putih dibuat padat/solid (tidak transparan) */
+    /* Endapan putih padat solid (tidak transparan) */
     .endapan-putih-padat {
         position: absolute;
         bottom: 0;
@@ -130,7 +128,6 @@ with tab1:
         if st.button("⏹️ Stop & Ganti Reaktan", use_container_width=True, disabled=not st.session_state.reaksi_berjalan, key="btn_stop"):
             st.session_state.reaksi_berjalan = False
             st.session_state.reset_reaksi = True
-            st.success("Reaksi dihentikan! Tabung dibersihkan, silakan pilih golongan reaktan baru.")
             st.rerun()
 
     # Tampilan Visual Tabung Reaksi
