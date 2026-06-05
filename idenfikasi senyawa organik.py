@@ -15,55 +15,63 @@ if "skor_post_test" not in st.session_state:
 # --- CSS UNTUK VISUALISASI TABUNG REAKSI ---
 st.markdown("""
 <style>
-    .test-tube-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-    }
-    .test-tube {
-        width: 80px;
-        height: 250px;
-        border: 4px solid #d1d5db;
-        border-radius: 0 0 40px 40px;
-        position: relative;
-        background: rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-    }
-    /* Warna Cairan Standar (Bening) */
-    .liquid-base {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 120px;
-        background-color: rgba(200, 230, 255, 0.3);
-        transition: all 1s ease;
-    }
-    /* Efek Perubahan Warna / Endapan Cermin Perak */
-    .cermin-perak {
-        background: linear-gradient(to right, #94a3b8, #f1f5f9, #cbd5e1) !important;
-        border-top: 2px solid #64748b;
-    }
-    /* Endapan putih padat solid (tidak transparan) */
-    .endapan-putih-padat {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 45px;
-        background: linear-gradient(to top, #ffffff 0%, #f8fafc 70%, #e2e8f0 100%) !important;
-        border-top: 2px solid #cbd5e1;
-        opacity: 1.0 !important;
-    }
-    .keruh-instan {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-    }
-    .keruh-lambat {
-        background-color: rgba(241, 245, 249, 0.6) !important;
-    }
+.test-tube-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* MODIFIKASI: Mengubah latar belakang kaca menjadi agak gelap agar warna putih terlihat kontras */
+.test-tube {
+    width: 80px;
+    height: 250px;
+    border: 4px solid #cbd5e1;
+    border-radius: 0 0 40px 40px;
+    position: relative;
+    background: rgba(15, 23, 42, 0.15); /* Efek kaca smoky gelap */
+    overflow: hidden;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.2);
+}
+
+/* Warna Cairan Standar (Bening) */
+.liquid-base {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background-color: rgba(200, 230, 255, 0.25);
+    transition: all 1s ease;
+}
+
+/* Efek Perubahan Warna / Endapan Cermin Perak */
+.cermin-perak {
+    background: linear-gradient(to right, #94a3b8, #f1f5f9, #cbd5e1) !important;
+    border-top: 2px solid #64748b;
+}
+
+/* MODIFIKASI: Menambahkan box-shadow gelap di atas endapan putih agar batasnya terlihat sangat jelas */
+.endapan-putih-padat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background: linear-gradient(to top, #ffffff 0%, #f8fafc 70%, #e2e8f0 100%) !important;
+    border-top: 2px solid #94a3b8;
+    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.15); /* Mempertegas bentuk endapan */
+    opacity: 1.0 !important;
+}
+
+.keruh-instan {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.keruh-lambat {
+    background-color: rgba(241, 245, 249, 0.6) !important;
+}
 </style>
-""", unsafe_allow_index=True)
+""", unsafe_allow_html=True) # Diubah ke unsafe_allow_html=True karena unsafe_allow_index=True sudah deprecated
 
 # --- NAVIGATION TABS ---
 tab1, tab2 = st.tabs(["🧪 Simulasi Reaksi", "📝 Post Test Golongan"])
@@ -74,7 +82,7 @@ tab1, tab2 = st.tabs(["🧪 Simulasi Reaksi", "📝 Post Test Golongan"])
 with tab1:
     st.header("Simulasi Identifikasi Gugus Fungsi")
     st.write("Pilih golongan senyawa reaktan dan reagen uji untuk melihat karakteristik makroskopisnya.")
-
+    
     col1, col2 = st.columns(2)
     with col1:
         golongan_reaktan = st.selectbox(
@@ -102,7 +110,7 @@ with tab1:
             teks_hasil = "🟢 **Hasil Positif:** Terbentuk lapisan **Cermin Perak** pada dinding tabung. Golongan aldehida berhasil dioksidasi menjadi asam karboksilat."
         else:
             teks_hasil = "❌ **Hasil Negatif:** Tidak terbentuk cermin perak. Golongan senyawa ini tidak dapat dioksidasi oleh reagen Tollens."
-
+            
     elif reagen_uji == "Reagen Lucas":
         if golongan_reaktan == "Alkohol Tersier":
             css_cairan = "liquid-base keruh-instan"
@@ -122,9 +130,8 @@ with tab1:
             st.session_state.reaksi_berjalan = True
             st.session_state.reset_reaksi = False
             st.rerun()
-
+            
     with btn_col2:
-        # Fitur Stop Reaksi untuk mengganti reaktan di tengah jalan
         if st.button("⏹️ Stop & Ganti Reaktan", use_container_width=True, disabled=not st.session_state.reaksi_berjalan, key="btn_stop"):
             st.session_state.reaksi_berjalan = False
             st.session_state.reset_reaksi = True
@@ -140,7 +147,7 @@ with tab1:
                 {efek_endapan}
             </div>
         </div>
-        """, unsafe_allow_index=True)
+        """, unsafe_allow_html=True)
         st.subheader("Analisis Hasil Uji:")
         st.info(teks_hasil)
     else:
@@ -150,9 +157,8 @@ with tab1:
                 <div class="liquid-base"></div>
             </div>
         </div>
-        """, unsafe_allow_index=True)
-        st.caption("<center>Pilih komponen di atas lalu klik 'Mulai Reaksikan'.</center>", unsafe_allow_index=True)
-
+        """, unsafe_allow_html=True)
+        st.caption("<center>Pilih komponen di atas lalu klik 'Mulai Reaksikan'.</center>", unsafe_allow_html=True)
 
 # ==========================================
 # TAB 2: POST TEST (EVALUASI GOLONGAN)
@@ -162,20 +168,18 @@ with tab2:
     st.write("Uji pemahamanmu mengenai prinsip identifikasi golongan senyawa organik di bawah ini.")
     
     with st.form("form_post_test"):
-        # Soal 1: Tentang sifat oksidasi Tollens pada golongan alkanal
         q1 = st.radio(
             "1. Suatu sampel tidak dikenal direaksikan dengan reagen Tollens dan menghasilkan lapisan cermin perak pada dinding tabung reaksi. Golongan senyawa apakah sampel tersebut?",
             ["Alkohol Primer", "Keton (Alkanon)", "Aldehida (Alkanal)", "Asam Karboksilat"],
             index=None
         )
         
-        # Soal 2: Tentang karakteristik visual endapan putih padat reagen Lucas
         q2 = st.radio(
             "2. Ketika ditetesi reagen Lucas, sebuah larutan menunjukkan reaksi instan berupa kekeruhan yang pekat dan terbentuk endapan putih padat di dasar tabung tanpa pemanasan. Hal ini menandakan adanya golongan...",
             ["Alkohol Primer", "Alkohol Sekunder", "Alkohol Tersier", "Golongan Ester"],
             index=None
         )
-
+        
         submit_test = st.form_submit_button("Kirim Jawaban")
         
         if submit_test:
@@ -183,15 +187,17 @@ with tab2:
                 st.warning("Mohon jawab semua pertanyaan sebelum mengirimkan hasil!")
             else:
                 skor = 0
-                if q1 == "Aldehida (Alkanal)": skor += 50
-                if q2 == "Alkohol Tersier": skor += 50
+                if q1 == "Aldehida (Alkanal)":
+                    skor += 50
+                if q2 == "Alkohol Tersier":
+                    skor += 50
                 st.session_state.skor_post_test = skor
 
-    # Menampilkan Nilai Evaluasi
-    if st.session_state.skor_post_test is not None:
-        st.write("---")
-        st.subheader("Hasil Evaluasi Anda:")
-        if st.session_state.skor_post_test == 100:
-            st.success(f"🎉 Selamat! Nilai Anda: {st.session_state.skor_post_test}/100. Anda memahami prinsip identifikasi golongan dengan sangat baik!")
-        else:
-            st.warning(f"📝 Nilai Anda: {st.session_state.skor_post_test}/100. Pelajari kembali perbedaan reaktivitas antar golongan fungsi pada menu Simulasi.")
+        # Menampilkan Nilai Evaluasi
+        if st.session_state.skor_post_test is not None:
+            st.write("---")
+            st.subheader("Hasil Evaluasi Anda:")
+            if st.session_state.skor_post_test == 100:
+                st.success(f"🎉 Selamat! Nilai Anda: {st.session_state.skor_post_test}/100. Anda memahami prinsip identifikasi golongan dengan sangat baik!")
+            else:
+                st.warning(f"📝 Nilai Anda: {st.session_state.skor_post_test}/100. Pelajari kembali perbedaan reaktivitas antar golongan fungsi pada menu Simulasi.")
