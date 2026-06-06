@@ -77,15 +77,14 @@ st.markdown("""
     right: 0;
     transition: height 1.2s ease, background 1.2s ease;
 }
+/* PERBAIKAN: Background statis dihapus agar warna bisa diatur dinamis via fungsi render_tube */
 .precipitate-layer {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 50px;
-    background: linear-gradient(to top, #ffffff 0%, #f1f5f9 80%, #cbd5e1 100%) !important;
     box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
-    border-top: 2.5px solid #94a3b8;
 }
 .cloudy-layer {
     position: absolute;
@@ -122,7 +121,8 @@ def force_rerun():
 def render_tube(tinggi, warna, efek):
     e_html = ""
     if efek == "precipitate":
-        e_html = "<div class='precipitate-layer'></div>"
+        # PERBAIKAN: Menyuntikkan variabel warna_akhir secara dinamis ke background endapan
+        e_html = f"<div class='precipitate-layer' style='background: linear-gradient(to top, {warna} 0%, #cbd5e1 100%); border-top: 2.5px solid {warna};'></div>"
     elif efek == "cloudy":
         e_html = "<div class='cloudy-layer'></div>"
     elif efek == "bubbles":
@@ -355,7 +355,7 @@ with st.sidebar:
     st.caption("E-Learning Kimia Organik | © 2026")
 
 # ==============================================================================
-# 5. LOGIKA KONTEN TIAP HALAMAN (BERSIH TOTAL & INTERAKTIF)
+# 5. LOGIKA KONTEN TIAP HALAMAN
 # ==============================================================================
 
 if pilihan_halaman == "🏠 HALAMAN UTAMA":
@@ -405,7 +405,6 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("<br>", unsafe_allow_html=True)
     st.info("💡 **Tips:** Pastikan koneksi internet stabil agar transisi animasi tabung reaksi berjalan dengan mulus!")
 
-# --- BAB I ---
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.title("📘 BAB I. HIDROKARBON")
     st.write("---")
@@ -459,7 +458,6 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     
     st.latex(r"\text{C}_6\text{H}_6 + \text{HNO}_3 \xrightarrow{\text{H}_2\text{SO}_4\text{ pekat}} \text{C}_6\text{H}_5\text{NO}_2 \text{ (Nitrobenzena)} + \text{H}_2\text{O}")
 
-# --- BAB II ---
 elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     st.title("📙 BAB II. ALKOHOL, ETER, DAN FENOL")
     st.write("---")
@@ -479,7 +477,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     * Alkohol $1^\circ$: Tidak bereaksi pada suhu kamar.
     """)
     
-    st.latex(r"\text{R}_3\text{C-OH (Alkohol } 3^\circ\text{)} + \text{HCl} \xrightarrow{\text{ZnCl}_2} \text{R}_3\text{C-Cl}\downarrow \text{ (Keruh/Alkil klorida)} + \text{H}_2\text{O}")
+    st.latex(r"\text{R}_3\text{C-OH (Alkohol } 3^\circ\text{)} + \text{HCl} \xrightarrow{\text{ZnCl}_2} \text{R}_3\text{C-Cl}\downarrow \text (Keruh/Alkil klorida) + \text{H}_2\text{O}")
     
     st.markdown("""
     **2. Pereaksi Jones (Oksidasi Alkohol)**
@@ -529,7 +527,6 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     
     st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \text{ (dalam H}_2\text{O)} \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow \text{ (Endapan Putih)} + 3\text{HBr}")
 
-# --- BAB III ---
 elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
     st.write("---")
@@ -580,7 +577,6 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     
     st.latex(r"\text{R-CHO} + 2\text{Cu}^{2+}\text{(sitrat)} + 5\text{OH}^- \rightarrow \text{R-COO}^- + \text{Cu}_2\text{O}\downarrow\text{ (Endapan Merah Bata)} + 3\text{H}_2\text{O}")
 
-# --- BAB IV ---
 elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     st.title("📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA")
     st.write("---")
@@ -640,7 +636,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     """)
     
     st.latex(r"3\text{R-CONH-OH} + \text{FeCl}_3 \rightarrow \text{Fe(R-CONHO)}_3 \text{ (Kompleks Ungu)} + 3\text{HCl}")
-# --- POST TEST ---
+
 elif pilihan_halaman == "🔬 POST TEST":
     st.title("🔀 Smart Flowchart Auto-Analyzer (Step-by-Step)")
     st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif Golongan Fungsi secara otomatis berderet.")
