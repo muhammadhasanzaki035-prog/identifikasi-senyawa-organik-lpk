@@ -116,7 +116,7 @@ database_reaksi = {
         "Ceric Nitrat": {
             "hasil": "(+) Merah Ceri", 
             "reaksi": r"\text{R-OH} + [\text{Ce(NO}_3)_6]^{2-} \rightarrow [\text{Ce(OR)(NO}_3)_5]^{2-} + \text{HNO}_3", 
-            "alasan": "Gugus -OH bebas dari 1-butanol bereaksi menggantikan ligan nitrat pada ion Cerium(IV) membentuk senyawa kompleks koordinasi yang berwarna merah ceri.", 
+            "alasan": "Gugus -OH bebas dari 1-butanol bereaksi menggantikan ligan nitrat pada ion Cerium(IV) membentuk senyawa complexes koordinasi yang berwarna merah ceri.", 
             "warna_akhir": "#ef4444", "efek": "tidak_ada"
         },
         "Pereaksi Jones": {
@@ -182,7 +182,7 @@ database_reaksi = {
         "Ceric Nitrat": {
             "hasil": "(-) Kuning", 
             "reaksi": r"\text{HCHO} + [\text{Ce(NO}_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", 
-            "alasan": "Formaldehida merupakan aldehid dan tidak memiliki gugus hidroksil bebas untuk bereaksi dengan Cerium.", 
+            "alasan": "Formaldehida merupakan aldehid and tidak memiliki gugus hidroksil bebas untuk bereaksi dengan Cerium.", 
             "warna_akhir": "#facc15", "efek": "tidak_ada"
         },
         "Na-Bisulfit": {
@@ -359,7 +359,7 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
         "senyawa organik secara interaktif—kapan saja dan di mana saja, layaknya memiliki laboratorium pribadi."
     )
     
-# --- [BAGIAN YANG DIUBAH] ISI MATERI BAB I (DARI SKRIP KEDUA) ---
+# --- ISI MATERI BAB I ---
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.title("📘 BAB I. HIDROKARBON")
     st.write("---")
@@ -394,7 +394,7 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.latex(r"\text{R-CH}=\text{CH-R} + \text{I}_2 \rightarrow \text{R-CH(I)-CH(I)-R}")
     
     st.markdown("""
-    * **Uji Baeyer (Oksidasi dengan $KMnO_4$):** Alkena atau alkuna dioksidasi oleh larutan kalium permanganat encer dalam suasana netral/basa menghasilkan senyawa glikol. Uji positif ditandai dengan hilangnya warna ungu $KMnO_4$ dan terbentuknya endapan cokelat $MnO_2$.
+    * **Uji Baeyer (Oksidasi dengan $KMnO_4$):** Alkena atau alkuna dioksidasi oleh larutan kalium permanganat encer dalam suasana netral/basa menghasilkan senyawa glikol. Uji positif ditandai dengan hilangnya warna ungu $KMnO_4$ and terbentuknya endapan cokelat $MnO_2$.
     """)
     
     st.latex(r"3\text{CH}_2=\text{CH}_2 + 2\text{KMnO}_4 + 4\text{H}_2\text{O} \rightarrow 3\text{HO-CH}_2\text{-CH}_2\text{-OH} + 2\text{MnO}_2\downarrow + 2\text{KOH}")
@@ -413,7 +413,7 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     
     st.latex(r"\text{C}_6\text{H}_6 + \text{HNO}_3 \xrightarrow{\text{H}_2\text{SO}_4\text{ pekat}} \text{C}_6\text{H}_5\text{NO}_2 + \text{H}_2\text{O}")
 
-# --- [BAGIAN YANG DIUBAH] ISI MATERI BAB II (DARI SKRIP KEDUA) ---
+# --- ISI MATERI BAB II ---
 elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     st.title("📙 BAB II. ALKOHOL, ETER, DAN FENOL")
     st.write("---")
@@ -483,7 +483,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     
     st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow + 3\text{HBr}")
 
-# --- [BAGIAN YANG DIUBAH] ISI MATERI BAB III (DARI SKRIP KEDUA) ---
+# --- ISI MATERI BAB III ---
 elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
     st.write("---")
@@ -534,7 +534,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     
     st.latex(r"\text{R-CHO} + 2\text{Cu}^{2+} + 5\text{OH}^- \rightarrow \text{R-COO}^- + \text{Cu}_2\text{O}\downarrow + 3\text{H}_2\text{O}")
 
-# --- [BAGIAN YANG DIUBAH] ISI MATERI BAB IV (DARI SKRIP KEDUA) ---
+# --- ISI MATERI BAB IV ---
 elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     st.title("📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA")
     st.write("---")
@@ -595,7 +595,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     
     st.latex(r"3\text{R-CONH-OH} + \text{FeCl}_3 \rightarrow \text{Fe(R-CONHO)}_3 + 3\text{HCl}")
 
-# --- POST TEST (TIDAK BERUBAH - SESUAI SKRIP PERTAMA) ---
+# --- POST TEST ---
 elif pilihan_halaman == "🔬 POST TEST":
     st.title("🔀 Asisten Identifikasi Cerdas (Step-by-Step)")
     st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif langkah demi langkah. Tekan tombol *Lanjut* untuk melanjutkan ke tahap reaksi berikutnya.")
