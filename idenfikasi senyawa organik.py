@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# 2. CUSTOM CSS INTERAKTIF
+# 2. CUSTOM CSS INTERAKTIF (Warna & Desain Dipertahankan)
 # ==============================================================================
 st.markdown("""
     <style>
@@ -154,7 +154,7 @@ database_reaksi = {
         "Uji Iodoform": {
             "hasil": "(+) Endapan Kuning", 
             "reaksi": r"\text{R-CH(OH)-CH}_3 + 4\text{I}_2 + 6\text{NaOH} \rightarrow \text{CHI}_3\downarrow + \text{R-COONa} + 5\text{NaI} + 5\text{H}_2\text{O}", 
-            "alasan": "2-Butanol adalah metil karbinol yang dioksidasi iodin menjadi metil keton. Gugus metilnya tersubstitusi menjadi kristal iodoform kuning.", 
+            "alasan": "2-Butanol is metil karbinol yang dioksidasi iodin menjadi metil keton. Gugus metilnya tersubstitusi menjadi kristal iodoform kuning.", 
             "warna_akhir": "#fef08a", "efek": "endapan"
         }
     },
@@ -174,7 +174,7 @@ database_reaksi = {
         "Pereaksi Lucas": {
             "hasil": "(+) Emulsi Putih (Seketika)", 
             "reaksi": r"\text{R}_3\text{C-OH} + \text{HCl} \xrightarrow{\text{ZnCl}_2} \text{R}_3\text{C-Cl}\downarrow + \text{H}_2\text{O}", 
-            "alasan": "Membentuk karbokation tersier yang sangat stabil. Reaksi (SN1) terjadi seketika menghasilkan endapan alkil klorida.", 
+            "alasan": "Membentuk karbokation tersier yang sangat stabile. Reaksi (SN1) terjadi seketika menghasilkan endapan alkil klorida.", 
             "warna_akhir": "#94a3b8", "efek": "keruh"
         }
     },
@@ -352,14 +352,14 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
         </div>
     """, unsafe_allow_html=True)
     
-    st.subheader("💡 Tentang OrganicChem")
+    st.subheader("💡 Petunjuk Penggunaan")
     st.write(
-        "Kami hadir untuk menjembatani teori dan praktik. Platform ini dirancang khusus untuk "
-        "membantu Anda memahami materi teoretis sekaligus memvisualisasikan reaksi uji kualitatif "
-        "senyawa organik secara interaktif—kapan saja dan di mana saja, layaknya memiliki laboratorium pribadi."
+        "1. Gunakan menu navigasi di bilah samping (sidebar) untuk berpindah halaman materi.\n"
+        "2. Pelajari teori dasar, sifat fisika, sifat kimia, beserta persamaan reaksi di Bab I sampai Bab IV.\n"
+        "3. Uji pemahaman Anda di menu **🔬 POST TEST** untuk melakukan simulasi penentuan sampel tak dikenal secara bertahap."
     )
     
-# --- BAB I ---
+# --- BAB I (DIGANTI ISI SKRIP KEDUA) ---
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.title("📘 BAB I. HIDROKARBON")
     st.write("---")
@@ -413,7 +413,7 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     
     st.latex(r"\text{C}_6\text{H}_6 + \text{HNO}_3 \xrightarrow{\text{H}_2\text{SO}_4\text{ pekat}} \text{C}_6\text{H}_5\text{NO}_2 + \text{H}_2\text{O}")
 
-# --- BAB II ---
+# --- BAB II (DIGANTI ISI SKRIP KEDUA) ---
 elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     st.title("📙 BAB II. ALKOHOL, ETER, DAN FENOL")
     st.write("---")
@@ -477,13 +477,13 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     st.latex(r"6\text{C}_6\text{H}_5\text{OH} + \text{FeCl}_3 \rightarrow [\text{Fe(OC}_6\text{H}_5)_6]^{3-} + 3\text{H}^+ + 3\text{Cl}^-")
     
     st.markdown("""
-    **3. Reaksi Substitusi Aromatik (Trisubstitusi Air Brom)**
+    **3. Reaksi Substitusi Aromatik (Trisubsitusi Air Brom)**
     * Cincin aromatik pada fenol sangat reaktif karena efek aktivasi dari gugus $-OH$. Jika direaksikan dengan air brom ($Br_2/H_2O$) yang bersifat polar, akan langsung mengalami trisubstitusi membentuk endapan putih 2,4,6-tribromofenol.
     """)
     
     st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow + 3\text{HBr}")
 
-# --- BAB III ---
+# --- BAB III (DIGANTI ISI SKRIP KEDUA) ---
 elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
     st.write("---")
@@ -534,7 +534,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     
     st.latex(r"\text{R-CHO} + 2\text{Cu}^{2+} + 5\text{OH}^- \rightarrow \text{R-COO}^- + \text{Cu}_2\text{O}\downarrow + 3\text{H}_2\text{O}")
 
-# --- BAB IV ---
+# --- BAB IV (DIGANTI ISI SKRIP KEDUA) ---
 elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     st.title("📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA")
     st.write("---")
@@ -595,7 +595,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     
     st.latex(r"3\text{R-CONH-OH} + \text{FeCl}_3 \rightarrow \text{Fe(R-CONHO)}_3 + 3\text{HCl}")
 
-# --- POST TEST ---
+# --- POST TEST (MENGGUNAKAN SIMULASI SEPENUHNYA DARI SKRIP PERTAMA) ---
 elif pilihan_halaman == "🔬 POST TEST":
     st.title("🔀 Asisten Identifikasi Cerdas (Step-by-Step)")
     st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif langkah demi langkah. Tekan tombol *Lanjut* untuk melanjutkan ke tahap reaksi berikutnya.")
@@ -645,7 +645,6 @@ elif pilihan_halaman == "🔬 POST TEST":
         if st.session_state.trigger_animation and st.session_state.current_step < len(urutan):
             pereaksi = urutan[st.session_state.current_step]
             
-            # Efek 'tidak_ada' dioper secara eksplisit ke generator tabung
             tube_placeholder.markdown(render_tube("30%", "#f1f5f9", "tidak_ada"), unsafe_allow_html=True)
             status_placeholder.markdown(f"<div style='text-align:center;'><em>Menyiapkan sampel untuk {pereaksi}...</em></div>", unsafe_allow_html=True)
             time.sleep(1.0)
@@ -656,7 +655,6 @@ elif pilihan_halaman == "🔬 POST TEST":
             time.sleep(1.5)
             
             res = database_reaksi[senyawa][pereaksi]
-            # Sinkronisasi warna akhir dan efek fisik (endapan, keruh, atau gelembung)
             tube_placeholder.markdown(render_tube("65%", res["warna_akhir"], res["efek"]), unsafe_allow_html=True)
             status_placeholder.markdown("<div style='text-align:center; font-weight:bold;'>Melihat hasil reaksi...</div>", unsafe_allow_html=True)
             time.sleep(1.2)
