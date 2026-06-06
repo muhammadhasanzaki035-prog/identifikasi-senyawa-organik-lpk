@@ -153,7 +153,6 @@ flowchart_paths = {
     "Alkana / Hidrokarbon Jenuh": ["Uji Golongan Alkohol", "Uji Golongan Alkanal/Aldehida (Bisulfit)", "Uji Golongan Ester", "Uji Golongan Asam Karboksilat"]
 }
 
-# Database reaksi menggunakan format string murni LaTeX khusus untuk st.latex
 database_reaksi = {
     "Alkohol Primer": {
         "Uji Golongan Alkohol": {
@@ -359,7 +358,7 @@ with st.sidebar:
 # 5. LOGIKA KONTEN TIAP HALAMAN (BERSIH TOTAL & INTERAKTIF)
 # ==============================================================================
 
-elif pilihan_halaman == "🏠 HALAMAN UTAMA":
+if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
@@ -374,11 +373,9 @@ elif pilihan_halaman == "🏠 HALAMAN UTAMA":
     )
     st.markdown("---")
     
-    # --- BAGIAN PETUNJUK PENGGUNAAN DENGAN KARAKTER/IKON INTERAKTIF ---
     st.markdown("### 📜 Petunjuk Penggunaan")
     st.write("Ikuti langkah-langkah berikut untuk memulai petualangan laboratorium virtualmu:")
     
-    # Membuat 3 kolom kartu petunjuk
     p1, p2, p3 = st.columns(3)
     
     with p1:
@@ -642,4 +639,3 @@ elif pilihan_halaman == "🔬 POST TEST":
                     if st.button("🔄 Uji Golongan Senyawa Lain", use_container_width=True):
                         st.session_state.test_started = False
                         force_rerun()
-                        
