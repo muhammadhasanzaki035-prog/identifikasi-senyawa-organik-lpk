@@ -370,15 +370,16 @@ with st.sidebar:
 if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
-            <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
-            <p style='font-size: 1.2em; opacity: 0.95;'>Platform Eksplorasi Dunia Kimia Organik Tanpa Batas Melalui Media Pembelajaran Mandiri & Simulasi Identifikasi Gugus Fungsi</p>
+            <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Eksplorasi Dunia Kimia Organik Tanpa Batas! 👋</h1>
+            <p style='font-size: 1.2em; opacity: 0.95;'>Solusi cerdas belajar mandiri dan simulasi identifikasi gugus fungsi dalam satu platform.i</p>
         </div>
     """, unsafe_allow_html=True)
     
     st.subheader("💡 Tentang Platform Ini")
     st.write(
-        "Platform ini dirancang khusus untuk membantu memahami materi teoritis "
-        "sekaligus visualisasi reaksi uji kualitatif senyawa organik di laboratorium secara interaktif—kapan saja dan dimana saja, layaknya memiliki laboratorium pribadi."
+         "Kami hadir untuk menjembatani teori dan praktik. Platform ini dirancang khusus untuk "
+        "membantu Anda memahami materi teoretis sekaligus memvisualisasikan reaksi uji kualitatif "
+        "senyawa organik secara interaktif—kapan saja dan di mana saja, layaknya memiliki laboratorium pribadi."
     )
     st.markdown("---")
     
