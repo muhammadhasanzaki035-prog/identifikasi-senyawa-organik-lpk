@@ -699,7 +699,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
 
 elif pilihan_halaman == "🔬 POST TEST":
     st.title("🔀 Asisten Identifikasi Cerdas (Step-by-Step)")
-    st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif Golongan Fungsi secara otomatis berderet.")
+    st.write("Sistem ini mensimulasikan penelusuran Identifikasi Kualitatif langkah demi langkah. Tekan tombol Lanjut untuk melanjutkan ke tahap reaksi berikutnya.")
 
     if not st.session_state.test_started:
         st.divider()
