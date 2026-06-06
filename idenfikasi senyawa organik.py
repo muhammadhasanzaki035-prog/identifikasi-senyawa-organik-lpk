@@ -82,8 +82,8 @@ st.markdown("""
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50px;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    height: 60px; /* Diperlebar agar endapan lebih jelas terlihat */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
 }
 .cloudy-layer {
     position: absolute;
@@ -117,19 +117,21 @@ def force_rerun():
     elif hasattr(st, 'experimental_rerun'):
         st.experimental_rerun()
 
-def render_tube(tinggi, warna, efek):
+def render_tube(tinggi, warna_larutan, efek, warna_endapan=None):
     e_html = ""
     if efek == "precipitate":
-        # PERBAIKAN: Menggunakan warna solid murni tanpa gradasi abu-abu/putih
-        e_html = f"<div class='precipitate-layer' style='background: {warna}; border-top: 3px solid rgba(0, 0, 0, 0.15);'></div>"
+        # Menggunakan warna endapan khusus yang disuplai, jika tidak ada fallback ke warna larutan
+        bg_endapan = warna_endapan if warna_endapan else warna_larutan
+        e_html = f"<div class='precipitate-layer' style='background: {bg_endapan}; border-top: 3.5px solid rgba(0, 0, 0, 0.25);'></div>"
     elif efek == "cloudy":
         e_html = "<div class='cloudy-layer'></div>"
     elif efek == "bubbles":
         e_html = "<div class='bubble-fx' style='left:20px;'></div><div class='bubble-fx' style='left:50px; animation-delay:0.5s;'></div>"
-    return f"<div class='tube-wrap'><div class='tube-glass'><div class='tube-liquid' style='height:{tinggi}; background:{warna};'>{e_html}</div></div></div>"
+    return f"<div class='tube-wrap'><div class='tube-glass'><div class='tube-liquid' style='height:{tinggi}; background:{warna_larutan};'>{e_html}</div></div></div>"
 
+# PERBAIKAN: Pereaksi Ceric Ammonium Nitrate diubah menjadi Jingga murni (#f97316)
 reagen_colors = {
-    "Uji Golongan Alkohol": "#facc15", 
+    "Uji Golongan Alkohol": "#f97316", 
     "Uji Oksidasi Alkohol": "#f97316", 
     "Uji Golongan Alkohol Tersier": "#f8fafc", 
     "Uji Golongan Alkohol Sekunder": "#f8fafc", 
@@ -167,10 +169,10 @@ database_reaksi = {
             "warna_akhir": "#10b981", "efek": "none"
         },
         "Uji Golongan Alkohol Sekunder": {
-            "hasil": "(-) Bening", 
+            "hasil": "(-) Tetap Jingga", 
             "reaksi": r"R-CH_2OH + HCl \xrightarrow{ZnCl_2} \text{Tidak ada reaksi}", 
             "alasan": "Karbokation primer sangat tidak stabil sehingga tidak mampu bereaksi dengan pereaksi Lucas pada suhu kamar.", 
-            "warna_akhir": "#f8fafc", "efek": "none"
+            "warna_akhir": "#f97316", "efek": "none"
         }
     },
     "Alkohol Sekunder": {
@@ -196,7 +198,7 @@ database_reaksi = {
             "hasil": "(+) Endapan Kuning", 
             "reaksi": r"R-CH(OH)-CH_3 + 4\ I_2 + 6\ NaOH \rightarrow CHI_3 \downarrow + R-COONa + 5\ NaI + 5\ H_2O", 
             "alasan": "Struktur metil karbinol dioksidasi oleh iodin menjadi metil keton, lalu membentuk kristal iodoform berwarna kuning.", 
-            "warna_akhir": "#fef08a", "efek": "precipitate"
+            "warna_akhir": "#fef08a", "efek": "precipitate", "warna_endapan": "#facc15"  # Kuning pekat kontras
         }
     },
     "Alkohol Tersier": {
@@ -221,22 +223,22 @@ database_reaksi = {
     },
     "Aldehida (Alkanal)": {
         "Uji Golongan Alkohol": {
-            "hasil": "(-) Kuning", 
+            "hasil": "(-) Tetap Jingga", 
             "reaksi": r"R-CHO + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", 
-            "alasan": "Aldehida tidak memiliki gugus hidroksil (-OH) bebas sehingga warna pereaksi tetap kuning.", 
-            "warna_akhir": "#facc15", "efek": "none"
+            "alasan": "Aldehida tidak memiliki gugus hidroksil (-OH) bebas sehingga warna pereaksi tetap jingga.", 
+            "warna_akhir": "#f97316", "efek": "none"
         },
         "Uji Golongan Alkanal/Aldehida (Bisulfit)": {
             "hasil": "(+) Endapan Putih", 
             "reaksi": r"R-CHO + NaHSO_3 \rightarrow R-CH(OH)SO_3Na \downarrow", 
             "alasan": "Nukleofil bisulfit menyerang gugus karbonil aldehida yang reaktif, menghasilkan produk adisi berupa kristal putih.", 
-            "warna_akhir": "#ffffff", "efek": "precipitate"
+            "warna_akhir": "#cbd5e1", "efek": "precipitate", "warna_endapan": "#ffffff" # Kontras: Cairan abu, endapan putih bersih
         },
         "Uji Reduksi Golongan Alkanal (Fehling)": {
             "hasil": "(+) Merah Bata", 
             "reaksi": r"R-CHO + 2\ Cu^{2+} + 5\ OH^- \rightarrow R-COO^- + Cu_2O \downarrow + 3\ H_2O", 
             "alasan": "Aldehida adalah reduktor kuat yang mereduksi kupri oksida menjadi endapan tembaga(I) oksida berwarna merah bata.", 
-            "warna_akhir": "#b91c1c", "efek": "precipitate"
+            "warna_akhir": "#3b82f6", "efek": "precipitate", "warna_endapan": "#b91c1c" # Kontras: Larutan tetap biru, endapan merah bata di bawah
         },
         "Uji Spesifik Golongan Alkanal (Schiff)": {
             "hasil": "(+) Ungu / Magenta", 
@@ -247,16 +249,16 @@ database_reaksi = {
     },
     "Keton (Alkanon)": {
         "Uji Golongan Alkohol": {
-            "hasil": "(-) Kuning", 
+            "hasil": "(-) Tetap Jingga", 
             "reaksi": r"\text{Keton} + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", 
             "alasan": "Keton tidak memiliki gugus fungsi hidroksil.", 
-            "warna_akhir": "#facc15", "efek": "none"
+            "warna_akhir": "#f97316", "efek": "none"
         },
         "Uji Golongan Alkanal/Aldehida (Bisulfit)": {
             "hasil": "(+) Endapan Putih", 
             "reaksi": r"CH_3-CO-CH_3 + NaHSO_3 \rightarrow (CH_3)_2C(OH)SO_3Na \downarrow", 
             "alasan": "Keton suku rendah (seperti aseton) memiliki halangan sterik kecil sehingga masih bisa diadisi oleh bisulfit membentuk endapan putih.", 
-            "warna_akhir": "#ffffff", "efek": "precipitate"
+            "warna_akhir": "#cbd5e1", "efek": "precipitate", "warna_endapan": "#ffffff"
         },
         "Uji Reduksi Golongan Alkanal (Fehling)": {
             "hasil": "(-) Tetap Biru", 
@@ -268,12 +270,12 @@ database_reaksi = {
             "hasil": "(+) Endapan Kuning", 
             "reaksi": r"R-CO-CH_3 + 3\ I_2 + 4\ NaOH \rightarrow CHI_3 \downarrow + R-COONa + 3\ NaI + 3\ H_2O", 
             "alasan": "Memiliki gugus metil yang terikat langsung pada karbonil, sehingga bereaksi positif membentuk endapan kuning iodoform.", 
-            "warna_akhir": "#fef08a", "efek": "precipitate"
+            "warna_akhir": "#fef08a", "efek": "precipitate", "warna_endapan": "#facc15"
         }
     },
     "Ester (Alkil Alkanoat)": {
         "Uji Golongan Alkohol": {
-            "hasil": "(-) Kuning", "reaksi": r"\text{Ester} + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Tidak memiliki gugus hidroksil bebas.", "warna_akhir": "#facc15", "efek": "none"
+            "hasil": "(-) Tetap Jingga", "reaksi": r"\text{Ester} + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Tidak memiliki gugus hidroksil bebas.", "warna_akhir": "#f97316", "efek": "none"
         },
         "Uji Golongan Alkanal/Aldehida (Bisulfit)": {
             "hasil": "(-) Bening", "reaksi": r"\text{Ester} + NaHSO_3 \rightarrow \text{Tidak bereaksi}", "alasan": "Gugus ester stabil akibat efek resonansi elektron sehingga tidak reaktif terhadap nukleofil lemah.", "warna_akhir": "#f8fafc", "efek": "none"
@@ -287,7 +289,7 @@ database_reaksi = {
     },
     "Asam Karboksilat": {
         "Uji Golongan Alkohol": {
-            "hasil": "(-) Kuning", "reaksi": r"R-COOH + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Oksigen hidroksil ditarik oleh efek resonansi karbonil sehingga sifat nukleofilnya hilang.", "warna_akhir": "#facc15", "efek": "none"
+            "hasil": "(-) Tetap Jingga", "reaksi": r"R-COOH + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Oksigen hidroksil ditarik oleh efek resonansi karbonil sehingga sifat nukleofilnya hilang.", "warna_akhir": "#f97316", "efek": "none"
         },
         "Uji Golongan Alkanal/Aldehida (Bisulfit)": {
             "hasil": "(-) Bening", "reaksi": r"R-COOH + NaHSO_3 \rightarrow \text{Tidak bereaksi}", "alasan": "Senyawa ini tidak mengandung gugus fungsi aldehida atau keton.", "warna_akhir": "#f8fafc", "efek": "none"
@@ -304,7 +306,7 @@ database_reaksi = {
     },
     "Alkana / Hidrokarbon Jenuh": {
         "Uji Golongan Alkohol": {
-            "hasil": "(-) Kuning", "reaksi": r"\text{Alkana} + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Senyawa nonpolar inert, tidak memiliki gugus hidroksil.", "warna_akhir": "#facc15", "efek": "none"
+            "hasil": "(-) Tetap Jingga", "reaksi": r"\text{Alkana} + [Ce(NO_3)_6]^{2-} \rightarrow \text{Tidak bereaksi}", "alasan": "Senyawa nonpolar inert, tidak memiliki gugus hidroksil.", "warna_akhir": "#f97316", "efek": "none"
         },
         "Uji Golongan Alkanal/Aldehida (Bisulfit)": {
             "hasil": "(-) Bening", "reaksi": r"\text{Alkana} + NaHSO_3 \rightarrow \text{Tidak bereaksi}", "alasan": "Tidak memiliki gugus fungsi karbonil.", "warna_akhir": "#f8fafc", "efek": "none"
@@ -465,7 +467,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     #### **A. Sifat Fisika & Klasifikasi**
     * **Alkohol ($R - OH$):** Turunan alkana di mana satu atau lebih atom H digantikan oleh gugus hidroksil ($-OH$). Alkohol diklasifikasikan menjadi alkohol primer ($1^\circ$), sekunder ($2^\circ$), dan tersier ($3^\circ$) berdasarkan jenis atom C yang mengikat gugus $-OH$. Alkohol suhu rendah mudah larut dalam air karena sanggup membentuk ikatan hidrogen dengan molekul air. Kelarutan berkurang seiring bertambah panjangnya rantai karbon, namun meningkat pada struktur yang bercabang banyak.
     * **Eter ($R^1 - O - R^2$):** Isomer fungsional dari alkohol. Titik didih eter jauh lebih rendah dibandingkan alkohol isomernya karena tidak memiliki ikatan hidrogen antar-sesama molekul eter. Kelarutannya dalam air mirip dengan alkohol karena oksigen pada eter masih bisa menerima ikatan hidrogen dari air.
-    * **Fenol ($C_6H_5OH$):** Senyawa hidrokarbon aromatik yang mengikat gugus fungsi $-OH$ langsung pada cincin benzena. Berupa padatan/hablur pada suhu kamar, sedikit larut dalam air, dan larutannya bersifat asam lemah karena ion fenoksida yang terbentuk distabilkan oleh resonansi.
+    * **Fenol ($C_6H_5OH$):** Senyawa hidrokarbon aromatik yang mengikat gugus fungsi $-OH$ langsung pada cincin benzena. Berupa padatan/hablur pada suhu kamar, sedikit larut dalam air, and larutannya bersifat asam lemah karena ion fenoksida yang terbentuk distabilkan oleh resonansi.
 
     #### **B. Persamaan Reaksi Kimia Alkohol & Eter**
     
@@ -524,7 +526,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     * Cincin aromatik pada fenol sangat reaktif karena efek aktivasi dari gugus $-OH$. Jika direaksikan dengan air brom ($Br_2/H_2O$) yang bersifat polar, akan langsung mengalami trisubstitusi membentuk endapan putih 2,4,6-tribromofenol.
     """)
     
-    st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \text (dalam H}_2\text{O)} \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow \text{ (Endapan Putih)} + 3\text{HBr}")
+    st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \text{ (dalam H}_2\text{O)} \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow \text{ (Endapan Putih)} + 3\text{HBr}")
 
 elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
@@ -692,17 +694,21 @@ elif pilihan_halaman == "🔬 POST TEST":
         if st.session_state.trigger_animation and st.session_state.current_step < len(urutan):
             pereaksi = urutan[st.session_state.current_step]
             
+            # Pengisian larutan awal sampel bening
             tube_placeholder.markdown(render_tube("30%", "#f1f5f9", "none"), unsafe_allow_html=True)
             status_placeholder.markdown(f"<div style='text-align:center;'><em>Menyiapkan sampel untuk {pereaksi}...</em></div>", unsafe_allow_html=True)
             time.sleep(1.0)
             
+            # Penambahan reagen uji
             warna_reagen = reagen_colors[pereaksi]
             tube_placeholder.markdown(render_tube("65%", warna_reagen, "none"), unsafe_allow_html=True)
             status_placeholder.markdown(f"<div style='text-align:center;'><em>Mereaksikan {pereaksi}...</em></div>", unsafe_allow_html=True)
             time.sleep(1.5)
             
+            # Hasil reaksi akhir (warna larutan atas + endapan bawah terpisah)
             res = database_reaksi[senyawa][pereaksi]
-            tube_placeholder.markdown(render_tube("65%", res["warna_akhir"], res["efek"]), unsafe_allow_html=True)
+            w_endapan = res.get("warna_endapan", None)
+            tube_placeholder.markdown(render_tube("65%", res["warna_akhir"], res["efek"], warna_endapan=w_endapan), unsafe_allow_html=True)
             status_placeholder.markdown("<div style='text-align:center; font-weight:bold;'>Mengamati pengendapan & perubahan warna...</div>", unsafe_allow_html=True)
             time.sleep(1.2)
             
@@ -722,7 +728,8 @@ elif pilihan_halaman == "🔬 POST TEST":
             if st.session_state.current_step > 0:
                 last_pereaksi = urutan[st.session_state.current_step - 1]
                 res = database_reaksi[senyawa][last_pereaksi]
-                tube_placeholder.markdown(render_tube("65%", res["warna_akhir"], res["efek"]), unsafe_allow_html=True)
+                w_endapan = res.get("warna_endapan", None)
+                tube_placeholder.markdown(render_tube("65%", res["warna_akhir"], res["efek"], warna_endapan=w_endapan), unsafe_allow_html=True)
             
             if st.session_state.current_step < len(urutan):
                 next_pereaksi = urutan[st.session_state.current_step]
