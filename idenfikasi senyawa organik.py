@@ -359,7 +359,7 @@ with st.sidebar:
 # 5. LOGIKA KONTEN TIAP HALAMAN (BERSIH TOTAL & INTERAKTIF)
 # ==============================================================================
 
-if pilihan_halaman == "🏠 HALAMAN UTAMA":
+elif pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Selamat Datang di OrganicChem! 👋</h1>
@@ -373,10 +373,40 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
         "sekaligus visualisasi reaksi uji kualitatif senyawa organik di laboratorium secara interaktif—kapan saja dan dimana saja, layaknya memiliki laboratorium pribadi."
     )
     st.markdown("---")
-    st.markdown("""
-    ### **Petunjuk Penggunaan**
-    Silakan gunakan menu navigasi di sebelah kiri untuk membaca rangkuman materi sekaligus melakukan identifikasi senyawa organik secara sistematis.
-    """)
+    
+    # --- BAGIAN PETUNJUK PENGGUNAAN DENGAN KARAKTER/IKON INTERAKTIF ---
+    st.markdown("### 📜 Petunjuk Penggunaan")
+    st.write("Ikuti langkah-langkah berikut untuk memulai petualangan laboratorium virtualmu:")
+    
+    # Membuat 3 kolom kartu petunjuk
+    p1, p2, p3 = st.columns(3)
+    
+    with p1:
+        st.markdown("""
+        <div style="background: white; padding: 20px; border-radius: 12px; border-top: 5px solid #0f766e; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 180px;">
+            <h4 style="margin-top:0; color:#0f766e;">📖 Langkah 1: Pelajari</h4>
+            <p style="font-size: 0.95em; color: #475569;">Buka <b>Menu Navigasi</b> di samping kiri. Pilih materi dari <b>BAB I hingga BAB IV</b> untuk membaca teori dasar, sifat fisik/kimia, dan persamaan reaksi kimia senyawa organik.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with p2:
+        st.markdown("""
+        <div style="background: white; padding: 20px; border-radius: 12px; border-top: 5px solid #14b8a6; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 180px;">
+            <h4 style="margin-top:0; color:#14b8a6;">🧪 Langkah 2: Simulasi</h4>
+            <p style="font-size: 0.95em; color: #475569;">Masuk ke menu <b>🔬 POST TEST</b>. Di sana, kamu bisa memilih sampel misterius (<i>Blind Sample</i>) untuk menguji pemahaman analisismu secara langsung.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with p3:
+        st.markdown("""
+        <div style="background: white; padding: 20px; border-radius: 12px; border-top: 5px solid #0ea5e9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 180px;">
+            <h4 style="margin-top:0; color:#0ea5e9;">📊 Langkah 3: Amati</h4>
+            <p style="font-size: 0.95em; color: #475569;">Klik tombol reaksi, amati perubahan visual pada <b>Visual Lab</b> (warna/endapan/gas), serta baca hasil evaluasi otomatis pada tab <b>Logbook & Analisis</b>.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.info("💡 **Tips:** Pastikan koneksi internet stabil agar transisi animasi tabung reaksi berjalan dengan mulus!")
 
 elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.title("📘 BAB I. HIDROKARBON")
