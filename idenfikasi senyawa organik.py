@@ -340,6 +340,16 @@ if "log_history" not in st.session_state:
 if "trigger_animation" not in st.session_state:
     st.session_state.trigger_animation = False
 
+# Inisialisasi State Sub-Bab agar bisa diganti lewat tombol
+if "sub_bab_i" not in st.session_state:
+    st.session_state.sub_bab_i = "A. Sifat Fisika Hidrokarbon"
+if "sub_bab_ii" not in st.session_state:
+    st.session_state.sub_bab_ii = "A. Sifat Fisika & Klasifikasi"
+if "sub_bab_iii" not in st.session_state:
+    st.session_state.sub_bab_iii = "A. Sifat Fisika"
+if "sub_bab_iv" not in st.session_state:
+    st.session_state.sub_bab_iv = "A. Sifat Fisika"
+
 # ==============================================================================
 # 4. SIDEBAR NAVIGASI
 # ==============================================================================
@@ -371,7 +381,7 @@ if pilihan_halaman == "🏠 HALAMAN UTAMA":
     st.markdown("""
         <div class="banner-utama">
             <h1 style='color: white; margin-bottom: 5px; font-weight: 700;'>Eksplorasi Dunia Kimia Organik Tanpa Batas! 👋</h1>
-            <p style='font-size: 1.2em; opacity: 0.95;'>Solusi cerdas belajar mandiri dan simulasi identifikasi gugus fungsi dalam satu platform.i</p>
+            <p style='font-size: 1.2em; opacity: 0.95;'>Solusi cerdas belajar mandiri dan simulasi identifikasi gugus fungsi dalam satu platform.</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -418,11 +428,18 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
     st.title("📘 BAB I. HIDROKARBON")
     st.write("---")
     
-    # Navigasi Sub-Bab menggunakan Buttons
-    sub_bab_i = st.radio("Pilih Sub-Bab Materi:", ["A. Sifat Fisika Hidrokarbon", "B. Sifat Kimia & Reaksi Identifikasi"], horizontal=True)
-    st.write("")
+    # Navigasi Baris Tombol Horizontal
+    st.write("**Pilih Sub-Bab Materi:**")
+    btn_col1, btn_col2, _ = st.columns([1, 1, 2])
+    with btn_col1:
+        if st.button("A. Sifat Fisika Hidrokarbon", use_container_width=True):
+            st.session_state.sub_bab_i = "A. Sifat Fisika Hidrokarbon"
+    with btn_col2:
+        if st.button("B. Sifat Kimia & Identifikasi", use_container_width=True):
+            st.session_state.sub_bab_i = "B. Sifat Kimia & Reaksi Identifikasi"
+    st.write("---")
     
-    if sub_bab_i == "A. Sifat Fisika Hidrokarbon":
+    if st.session_state.sub_bab_i == "A. Sifat Fisika Hidrokarbon":
         st.markdown("""
         #### **A. Sifat Fisika Hidrokarbon**
         Hidrokarbon adalah senyawa organik yang seluruh strukturnya hanya tersusun atas unsur karbon (C) dan hidrogen (H). Berdasarkan jenis ikatannya, hidrokarbon alifatik dibagi menjadi hidrokarbon jenuh (alkana) dan tidak jenuh (alkena dan alkuna). Sementara itu, hidrokarbon aromatik memiliki rantai siklik konjugasi yang sangat stabil.
@@ -436,7 +453,7 @@ elif pilihan_halaman == "📘 BAB I. HIDROKARBON":
         * **Densitas:** Memiliki massa jenis (densitas) yang lebih kecil daripada air. Jika dicampur dengan air, lapisan hidrokarbon akan selalu berada di bagian atas.
         """)
         
-    elif sub_bab_i == "B. Sifat Kimia & Reaksi Identifikasi":
+    elif st.session_state.sub_bab_i == "B. Sifat Kimia & Reaksi Identifikasi":
         st.markdown("""
         #### **B. Sifat Kimia & Reaksi Identifikasi Hidrokarbon**
         
@@ -474,10 +491,21 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     st.title("📙 BAB II. ALKOHOL, ETER, DAN FENOL")
     st.write("---")
     
-    sub_bab_ii = st.radio("Pilih Sub-Bab Materi:", ["A. Sifat Fisika & Klasifikasi", "B. Reaksi Alkohol & Eter", "C. Reaksi Kimia Fenol"], horizontal=True)
-    st.write("")
+    # Navigasi Baris Tombol Horizontal
+    st.write("**Pilih Sub-Bab Materi:**")
+    btn_col1, btn_col2, btn_col3, _ = st.columns([1.2, 1.2, 1.2, 1])
+    with btn_col1:
+        if st.button("A. Sifat Fisika & Klasifikasi", use_container_width=True):
+            st.session_state.sub_bab_ii = "A. Sifat Fisika & Klasifikasi"
+    with btn_col2:
+        if st.button("B. Reaksi Alkohol & Eter", use_container_width=True):
+            st.session_state.sub_bab_ii = "B. Reaksi Alkohol & Eter"
+    with btn_col3:
+        if st.button("C. Reaksi Kimia Fenol", use_container_width=True):
+            st.session_state.sub_bab_ii = "C. Reaksi Kimia Fenol"
+    st.write("---")
     
-    if sub_bab_ii == "A. Sifat Fisika & Klasifikasi":
+    if st.session_state.sub_bab_ii == "A. Sifat Fisika & Klasifikasi":
         st.markdown("""
         #### **A. Sifat Fisika & Klasifikasi**
         * **Alkohol ($R - OH$):** Turunan alkana di mana satu atau lebih atom H digantikan oleh gugus hidroksil ($-OH$). Alkohol diklasifikasikan menjadi alkohol primer ($1^\circ$), sekunder ($2^\circ$), dan tersier ($3^\circ$) berdasarkan jenis atom C yang mengikat gugus $-OH$. Alkohol suhu rendah mudah larut dalam air karena sanggup membentuk ikatan hidrogen dengan molekul air. Kelarutan berkurang seiring bertambah panjangnya rantai karbon, namun meningkat pada struktur yang bercabang banyak.
@@ -485,7 +513,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
         * **Fenol ($C_6H_5OH$):** Senyawa hidrokarbon aromatik yang mengikat gugus fungsi $-OH$ langsung pada cincin benzena. Berupa padatan/hablur pada suhu kamar, sedikit larut dalam air, dan larutannya bersifat asam lemah karena ion fenoksida yang terbentuk distabilkan oleh resonansi.
         """)
         
-    elif sub_bab_ii == "B. Reaksi Alkohol & Eter":
+    elif st.session_state.sub_bab_ii == "B. Reaksi Alkohol & Eter":
         st.markdown("""
         #### **B. Persamaan Reaksi Kimia Alkohol & Eter**
         
@@ -516,9 +544,9 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
         **4. Pereaksi Ceric Ammonium Nitrate (CAN)**
         * Alkohol bereaksi membentuk senyawa kompleks koordinasi berwarna merah cerah, sedangkan eter memberikan hasil negatif (warna tetap jingga).
         """)
-        st.latex(r"\text{ROH} + [\text{Ce(NO}_3)_6]^{2-} \rightarrow [\text{Ce(OR)(NO}_3)_5]^{2-} \text{ (Kompleks Merah)} + \text{HNO}_3")
+        st.latex(r"\text{ROH} + $[\text{Ce(NO}_3)_6]^{2-} \rightarrow [\text{Ce(OR)(NO}_3)_5]^{2-} \text{ (Kompleks Merah)} + \text{HNO}_3")
         
-    elif sub_bab_ii == "C. Reaksi Kimia Fenol":
+    elif st.session_state.sub_bab_ii == "C. Reaksi Kimia Fenol":
         st.markdown("""
         #### **C. Persamaan Reaksi Kimia Fenol**
         
@@ -543,10 +571,21 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
     st.write("---")
     
-    sub_bab_iii = st.radio("Pilih Sub-Bab Materi:", ["A. Sifat Fisika", "B. Reaksi Adisi Karbonil", "C. Reaksi Diferensiasi (Uji Reduksi)"], horizontal=True)
-    st.write("")
+    # Navigasi Baris Tombol Horizontal
+    st.write("**Pilih Sub-Bab Materi:**")
+    btn_col1, btn_col2, btn_col3, _ = st.columns([1, 1.2, 1.5, 1])
+    with btn_col1:
+        if st.button("A. Sifat Fisika", use_container_width=True):
+            st.session_state.sub_bab_iii = "A. Sifat Fisika"
+    with btn_col2:
+        if st.button("B. Reaksi Adisi Karbonil", use_container_width=True):
+            st.session_state.sub_bab_iii = "B. Reaksi Adisi Karbonil"
+    with btn_col3:
+        if st.button("C. Reaksi Diferensiasi (Uji Reduksi)", use_container_width=True):
+            st.session_state.sub_bab_iii = "C. Reaksi Diferensiasi (Uji Reduksi)"
+    st.write("---")
     
-    if sub_bab_iii == "A. Sifat Fisika":
+    if st.session_state.sub_bab_iii == "A. Sifat Fisika":
         st.markdown("""
         #### **A. Sifat Fisika**
         Aldehida (${R-CHO}$) dan keton (${R-CO-R}'$) adalah senyawa organik isomer fungsional yang sama-sama memiliki gugus fungsi karbonil (${C}={O}$). Perbedaan utamanya terletak pada atom C karbonil aldehida yang mengikat minimal satu atom hidrogen, sedangkan pada keton terikat pada dua gugus alkil/aril.
@@ -554,7 +593,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
         Metanal (formaldehida) merupakan suku paling rendah yang berwujud gas pada suhu kamar dengan bau menyengat. Suku-suku aldehida rendah lainnya berupa cairan dengan bau yang semakin harum (seperti aroma buah-buahan) seiring bertambah panjangnya rantai C. Keton suku rendah (seperti aseton atau propanon) berupa cairan encer, mudah larut dalam air, mudah menguap, dan memiliki aroma yang segar.
         """)
         
-    elif sub_bab_iii == "B. Reaksi Adisi Karbonil":
+    elif st.session_state.sub_bab_iii == "B. Reaksi Adisi Karbonil":
         st.markdown("""
         #### **B. Reaksi Adisi Karbonil**
         
@@ -570,7 +609,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
         st.latex(r"\text{R-CHO} + \text{R'OH} \xrightarrow{\text{HCl}} \text{R-CH(OH)(OR')}")
         st.latex(r"\text{R-CH(OH)(OR')} + \text{R'OH} \xrightarrow{\text{HCl}} \text{R-CH(OR')}_2 + \text{H}_2\text{O}")
         
-    elif sub_bab_iii == "C. Reaksi Diferensiasi (Uji Reduksi)":
+    elif st.session_state.sub_bab_iii == "C. Reaksi Diferensiasi (Uji Reduksi)":
         st.markdown("""
         #### **C. Reaksi Diferensiasi (Uji Daya Reduksi Aldehida)**
         Aldehida bertindak sebagai reduktor kuat karena keberadaan atom hidrogen pada karbon karbonilnya, sedangkan keton tidak memiliki daya pereduksi dan memberikan hasil negatif pada uji-uji berikut:
@@ -588,7 +627,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
         
         st.markdown("""
         **3. Uji Benedict:**
-        * Memiliki prinsip kerja yang serupa dengan Uji Fehling, namun ion ${Cu}^{2+}$ dikomplekskan oleh sitrat. Pereaksi berada dalam kondisi alkalis lemah untuk menghasilkan endapan merah bata ${Cu}_2{O}$ saat direaksikan dengan aldehida.
+        * **Uji Benedict** memiliki prinsip kerja yang serupa dengan Uji Fehling, namun ion ${Cu}^{2+}$ dikomplekskan oleh sitrat. Pereaksi berada dalam kondisi alkalis lemah untuk menghasilkan endapan merah bata ${Cu}_2{O}$ saat direaksikan dengan aldehida.
         """)
         st.latex(r"\text{R-CHO} + 2\text{Cu}^{2+} + 5\text{OH}^- \rightarrow \text{R-COO}^- + \text{Cu}_2\text{O}\downarrow + 3\text{H}_2\text{O}")
 
@@ -596,10 +635,21 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
     st.title("📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA")
     st.write("---")
     
-    sub_bab_iv = st.radio("Pilih Sub-Bab Materi:", ["A. Sifat Fisika", "B. Reaksi Kimia Asam Karboksilat", "C. Identifikasi Derivat (Ester)"], horizontal=True)
-    st.write("")
+    # Navigasi Baris Tombol Horizontal
+    st.write("**Pilih Sub-Bab Materi:**")
+    btn_col1, btn_col2, btn_col3, _ = st.columns([1, 1.5, 1.5, 1])
+    with btn_col1:
+        if st.button("A. Sifat Fisika", use_container_width=True):
+            st.session_state.sub_bab_iv = "A. Sifat Fisika"
+    with btn_col2:
+        if st.button("B. Reaksi Kimia Asam Karboksilat", use_container_width=True):
+            st.session_state.sub_bab_iv = "B. Reaksi Kimia Asam Karboksilat"
+    with btn_col3:
+        if st.button("C. Identifikasi Derivat (Ester)", use_container_width=True):
+            st.session_state.sub_bab_iv = "C. Identifikasi Derivat (Ester)"
+    st.write("---")
     
-    if sub_bab_iv == "A. Sifat Fisika":
+    if st.session_state.sub_bab_iv == "A. Sifat Fisika":
         st.markdown("""
         #### **A. Sifat Fisika**
         Asam karboksilat memiliki gugus fungsi karboksil ($-{COOH}$), senyawa gabungan dari gugus karbonil dan hidroksil. Derivat atau turunan asam karboksilat (seperti ester, halida asam/asil halida, anhidrida asam, dan amida) terbentuk ketika gugus $-{OH}$ pada karboksilat digantikan oleh nukleofil lain.
@@ -607,7 +657,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
         Asam karboksilat rantai pendek ($C_1 - C_4$) memiliki kelarutan yang sangat baik di dalam air karena kemampuan gugus $-{COOH}$ membentuk ikatan hidrogen antarmolekul yang kuat membentuk dimer. Kelarutan senyawa akan semakin menurun seiring dengan bertambah tingginya bobot molekul (rantai alkil nonpolar semakin panjang). Titik didih asam karboksilat relatif tinggi dibandingkan senyawa organik lain dengan berat molekul setara.
         """)
         
-    elif sub_bab_iv == "B. Reaksi Kimia Asam Karboksilat":
+    elif st.session_state.sub_bab_iv == "B. Reaksi Kimia Asam Karboksilat":
         st.markdown("""
         #### **B. Persamaan Reaksi Kimia Asam Karboksilat**
         
@@ -633,7 +683,7 @@ elif pilihan_halaman == "📕 BAB IV. ASAM KARBOKSILAT DAN DERIVATNYA":
         """)
         st.latex(r"\text{R-COOH} + \text{R'-OH} \xrightarrow{\text{H}_2\text{SO}_4, \Delta} \text{R-COOR'} + \text{H}_2\text{O}")
         
-    elif sub_bab_iv == "C. Identifikasi Derivat (Ester)":
+    elif st.session_state.sub_bab_iv == "C. Identifikasi Derivat (Ester)":
         st.markdown("""
         #### **C. Persamaan Reaksi Identifikasi Derivat Asam Karboksilat (Uji Asam Hidroksamat)**
         Derivat asam karboksilat (contohnya ester) terlebih dahulu dikondensasikan dengan hidroksilamin (${NH}_2{OH}$) menghasilkan senyawa asam hidroksamat. Sifat kimia khas dari asam hidroksamat adalah kemampuannya mengkelat logam besi membentuk senyawa kompleks besi(III) hidroksamat yang menghasilkan warna ungu intens saat ditambahkan larutan ${FeCl}_3$.
