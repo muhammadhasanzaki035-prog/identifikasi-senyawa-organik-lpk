@@ -77,14 +77,13 @@ st.markdown("""
     right: 0;
     transition: height 1.2s ease, background 1.2s ease;
 }
-/* PERBAIKAN: Background statis dihapus agar warna bisa diatur dinamis via fungsi render_tube */
 .precipitate-layer {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 50px;
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
 }
 .cloudy-layer {
     position: absolute;
@@ -110,7 +109,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 3. FUNGSI HELPER & DATABASE (FORMAT LATEX PRESISI)
+# 3. FUNGSI HELPER & DATABASE
 # ==============================================================================
 def force_rerun():
     if hasattr(st, 'rerun'):
@@ -121,8 +120,8 @@ def force_rerun():
 def render_tube(tinggi, warna, efek):
     e_html = ""
     if efek == "precipitate":
-        # PERBAIKAN: Menyuntikkan variabel warna_akhir secara dinamis ke background endapan
-        e_html = f"<div class='precipitate-layer' style='background: linear-gradient(to top, {warna} 0%, #cbd5e1 100%); border-top: 2.5px solid {warna};'></div>"
+        # PERBAIKAN: Menggunakan warna solid murni tanpa gradasi abu-abu/putih
+        e_html = f"<div class='precipitate-layer' style='background: {warna}; border-top: 3px solid rgba(0, 0, 0, 0.15);'></div>"
     elif efek == "cloudy":
         e_html = "<div class='cloudy-layer'></div>"
     elif efek == "bubbles":
@@ -314,7 +313,7 @@ database_reaksi = {
             "hasil": "(-) Bening", "reaksi": r"\text{Alkana} + NH_2OH \rightarrow \text{Tidak bereaksi}", "alasan": "Tidak memiliki gugus fungsi ester.", "warna_akhir": "#f8fafc", "efek": "none"
         },
         "Uji Golongan Asam Karboksilat": {
-            "hasil": "(-) Bening", "reaksi": r"\text{Alkana} + NaHCO_3 \rightarrow \text{Tidak bereaksi}", 
+            "hasil": "(-) Bening", "reaksi": r"\text{Alkana} + NaNaHCO_3 \rightarrow \text{Tidak bereaksi}", 
             "alasan": "Hidrokarbon jenuh bersifat inert. Kegagalan di seluruh uji gugus fungsi membuktikan sampel ini adalah golongan alkana.", 
             "warna_akhir": "#f8fafc", "efek": "none"
         }
@@ -525,7 +524,7 @@ elif pilihan_halaman == "📙 BAB II. ALKOHOL, ETER, DAN FENOL":
     * Cincin aromatik pada fenol sangat reaktif karena efek aktivasi dari gugus $-OH$. Jika direaksikan dengan air brom ($Br_2/H_2O$) yang bersifat polar, akan langsung mengalami trisubstitusi membentuk endapan putih 2,4,6-tribromofenol.
     """)
     
-    st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \text{ (dalam H}_2\text{O)} \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow \text{ (Endapan Putih)} + 3\text{HBr}")
+    st.latex(r"\text{C}_6\text{H}_5\text{OH} + 3\text{Br}_2 \text (dalam H}_2\text{O)} \rightarrow \text{C}_6\text{H}_2\text{Br}_3\text{OH}\downarrow \text{ (Endapan Putih)} + 3\text{HBr}")
 
 elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     st.title("📗 BAB III. ALDEHID DAN KETON")
@@ -555,7 +554,7 @@ elif pilihan_halaman == "📗 BAB III. ALDEHID DAN KETON":
     
     st.markdown("""
     #### **C. Reaksi Diferensiasi (Uji Daya Reduksi Aldehida)**
-    Aldehida bertindak sebagai reduktor kuat karena keberadaan atom hidrogen pada karbon karbonilnya, sedangkan keton tidak memiliki daya pereduksi dan memberikan hasil negatif pada uji-uji berikut:
+    Aldehida bertindak sebagai reduktor kuat karena keberadaan atom hidrogen pada karbon karbonilnya, sedangkan keton tidak memiliki daya pereduksi and memberikan hasil negatif pada uji-uji berikut:
     
     **1. Uji Tollens (Cermin Perak):**
     * Aldehida mengoksidasi dirinya menjadi asam karboksilat sekaligus mereduksi ion kompleks perak beramoniak $[\text{Ag(NH}_3)_2]^+$ menjadi logam perak mendesak yang menempel di dinding tabung reaksi membentuk cermin perak.
